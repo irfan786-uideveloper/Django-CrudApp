@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="text-center alert alert-info">Student Admin Dashboard</h1>
+        <div class="row">
+            <div class="col-3">
+                <h3 class="text-info">Add Student</h3>
+                <form action="add" method="post">
+                    {% csrf_token %}
+                    <label>Username</label>
+                    {{form.name}}
+                    <br>
+                    <label>Course</label>
+                    {{form.course}}
+                    <br>
+                    <label>City</label>
+                    {{form.city}}
+                    <br>
+                    <button type="submit" class="btn btn-success">Add</button>
+                </form>
+            </div>
+            <!-- Student Dashboard -->
+            <div class="col-9">
+                <table class="table table-dark">
+                    <tr>
+                        <th>username</th>
+                        <th>Course</th>
+                        <th>City</th>
+                        <th colspan="2">Action</th>
+                    </tr>
+                    <tr>
+                        {% for i in student %}
+                        <td>{{i.name}}</td>
+                        <td>{{i.course}}</td>
+                        <td>{{i.city}}</td>
+                        <td>
+                            <a href="Edit/{{i.id}}" class="btn btn-warning btn-sm">Edit</a>
+                        </td>
+                        <td>
+                            <a href="delete/{{i.id}}" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
